@@ -1,4 +1,5 @@
 import Database from "../db/database.js";
+import Admin from "../entities/admin.js";
 
 
 export default class AdminRepository{
@@ -17,9 +18,23 @@ export default class AdminRepository{
 
         let result = await this.#banco.ExecutaComandoLastInserted(sql, valores);
 
+        entidade.id = result;
         return result;
 
     }
 
-    
+
+    async buscarPorEmail(email){
+        let sql = "select * from tb_admin where ad_email = ?";
+        let valores = [email];
+
+        let rows = await this.#banco.ExecutaComando(sql, valores);
+
+        if(rows.length > 0){
+            let row = rows[0];
+            let entidade = new Admin(row["ad_id"], row["ad_nome"], row["ad_email"], row["ad_senha"]);
+            return entidade;
+        }
+        return null;
+      }      
 }

@@ -1,11 +1,11 @@
 import express from 'express'
 import ProdutoController from '../controller/produtoController.js';
+import authMiddleware from '../middlewares/authMiddleware.js';
 const router = express.Router();
 
 let ctrl = new ProdutoController();
 
-
-router.post("/", (req, res) =>{
+router.post("/", authMiddleware, (req, res) =>{
 
     //#swagger.tags = ['Produtos']
     //#swagger.summary = "Realiza o cadastro de um produto"

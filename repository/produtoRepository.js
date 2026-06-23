@@ -15,8 +15,9 @@ export default class ProdutoRepository{
 
         let sql = "insert into tb_produto (p_nome, p_descricao, p_imagem) values (?, ?, ?)";
         let valores = [entidade.nome, entidade.descricao, entidade.imagem];
-
         let result = await this.#banco.ExecutaComandoLastInserted(sql, valores);
+
+        entidade.id = result;
 
         return result;
 
@@ -24,7 +25,6 @@ export default class ProdutoRepository{
 
       async listar() {
         let sql = "select * from tb_produto";
-        
         let rows = await this.#banco.ExecutaComando(sql);
         let entidades = [];
 
@@ -37,7 +37,7 @@ export default class ProdutoRepository{
     }
 
     async alterar(entidadeAtualizada){
-        let sql = "update tb_produto set p_nome = ?, p_descricao, p_imagem where p_id = ?";
+        let sql = "update tb_produto set p_nome = ?, p_descricao = ?, p_imagem = ? where p_id = ?";
         let valores = [entidadeAtualizada.nome, entidadeAtualizada.descricao, entidadeAtualizada.imagem, entidadeAtualizada.id];
 
         let result = await this.#banco.ExecutaComandoNonQuery(sql, valores);
@@ -49,7 +49,7 @@ export default class ProdutoRepository{
         let sql = "select * from tb_produto where p_id = ?";
         let valores = [id];
 
-        let result = await this.#banco.ExecutaComandoNonQuery(sql, valores);
+        let result = await this.#banco.ExecutaComando(sql, valores);
 
         return result;
     }

@@ -22,7 +22,7 @@ export default class adminEntity{
     }
 
     get nome(){
-        return this.#id;
+        return this.#nome;
     }
     set nome(values){
         this.#nome = values;
@@ -57,8 +57,7 @@ export default class adminEntity{
         return{
             id: this.#id,
             nome: this.#nome,
-            email: this.#email,
-            senha: this.#senha
+            email: this.#email
         }
     }
 }

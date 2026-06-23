@@ -45,7 +45,8 @@ export default class ProdutoController{
 
     async alterar(req, res){
         try{
-            let {id, nome, descricao, imagem} = req.body;
+            let {id} = req.params;
+            let {nome, descricao, imagem} = req.body;
             let produto = new ProdutoEntity(id, nome, descricao, imagem);
             if(produto && id){
                 let produtoEncontrado = await this.#repo.obter(id);
@@ -54,10 +55,10 @@ export default class ProdutoController{
                     if(result){
                         return res.status(200).json({msg: "Produto alterado com sucesso!"});
                     }
-                    throw new Error("Erro ao atualizar usuário no banco de dados");
+                    throw new Error("Erro ao atualizar produto no banco de dados");
                 }
                 else {
-                    return res.status(404).json({msg: "Usuário não encontrado!"});
+                    return res.status(404).json({msg: "Produto não encontrado!"});
                 }
             }
             else {
