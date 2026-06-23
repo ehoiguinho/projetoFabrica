@@ -22,7 +22,7 @@ router.get("/", (req, res) =>{
     ctrl.listar(req, res);
 })
 
-router.put("/:id", (req, res) =>{
+router.put("/:id", authMiddleware,   (req, res) =>{
 
     //#swagger.tags = ['Produtos']
     //#swagger.summary = "Realiza a alteração de dados de um produto"
@@ -31,7 +31,7 @@ router.put("/:id", (req, res) =>{
     ctrl.alterar(req, res);
 })
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id", authMiddleware, (req, res) => {
 
     //#swagger.tags = ['Produtos']
     //#swagger.summary = "Realiza a exclusão de um produto"
